@@ -12,13 +12,13 @@
         v-model="rawSelectedObject"
         required
       >
-        <option></option>
+        <option disabled></option>
         <option>Metal</option>
       </select>
     </label>
 
     <label class="field field__label">
-      How recently could someone have touched this?
+      How recently could someone else have touched this?
       <input
         class="field__input"
         type="datetime-local"
@@ -45,6 +45,18 @@ export default {
       touchableObjects: {
         metal: {
           lifetime: moment.duration(5, "days")
+        },
+        wood: {
+          lifetime: moment.duration(4, "days")
+        },
+        plastics: {
+          lifetime: moment.duration(3, "days")
+        },
+        stainlessSteel: {
+          lifetime: moment.duration(3, "days")
+        },
+        cardboard: {
+          lifetime: moment.duration(1, "days")
         }
       }
     };
