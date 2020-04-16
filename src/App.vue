@@ -34,7 +34,10 @@
     </label>
 
     <div v-if="showResult">
-      <p class="result">{{ canTheyTouchThis }}</p>
+      <p class="result" :class="{ 'result--yes': canTheyTouchThis, 'result--no': !canTheyTouchThis }">
+        {{ canTheyTouchThisText }}
+      </p>
+      <p class="result__description">The novel coronavirus can survive on {{ selectedObject.name.toLowerCase() }} for up to {{ selectedObjectReadableLifetime }}.</p>
     </div>
   </div>
 </template>
@@ -74,7 +77,7 @@ export default {
   },
   computed: {
     showResult() {
-      return this.rawSelectedObject !== "" && this.touchedTime !== "";
+      return this.rawSelectedObject !== "" && this.touchedTime !== null;
     },
     selectedObject() {
       const rawSelectedObject = this.rawSelectedObject;
@@ -82,15 +85,21 @@ export default {
         object => object.name === rawSelectedObject
       );
     },
+    selectedObjectReadableLifetime() {
+      return this.selectedObject.lifetime.humanize();
+    },
     canTheyTouchThis() {
       if (this.selectedObject === undefined || !this.touchedTime) {
-        return "";
+        return null;
       }
 
       const selectedObjectLifetime = this.selectedObject.lifetime;
       const touchedTime = moment(this.touchedTime);
       const durationDiff = moment.duration(moment().diff(touchedTime));
-      if (durationDiff.asHours() > selectedObjectLifetime.asHours()) {
+      return durationDiff.asHours() > selectedObjectLifetime.asHours();
+    },
+    canTheyTouchThisText() {
+      if (this.canTheyTouchThis) {
         return "Yes";
       } else {
         return "No";
@@ -126,6 +135,25 @@ h1 {
     display: block;
     margin: 0.5em auto;
     text-align: center;
+  }
+}
+
+.result {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25em;
+
+  &--yes {
+    color: green;
+  }
+
+  &--no {
+    color: red;
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    margin: 0;
   }
 }
 </style>
