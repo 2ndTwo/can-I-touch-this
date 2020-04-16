@@ -13,7 +13,9 @@
         required
       >
         <option disabled></option>
-        <option>Metal</option>
+        <option v-for="objectKey in Object.keys(touchableObjects)" :key="objectKey" :value="objectKey">
+          {{ touchableObjects[objectKey].name }}
+        </option>
       </select>
     </label>
 
@@ -44,18 +46,23 @@ export default {
       touchedTime: null,
       touchableObjects: {
         metal: {
+          name: "Metal",
           lifetime: moment.duration(5, "days")
         },
         wood: {
+          name: "Wood",
           lifetime: moment.duration(4, "days")
         },
-        plastics: {
+        plastic: {
+          name: "Plastic",
           lifetime: moment.duration(3, "days")
         },
         stainlessSteel: {
+          name: "Stainless Steel",
           lifetime: moment.duration(3, "days")
         },
         cardboard: {
+          name: "Cardboard",
           lifetime: moment.duration(1, "days")
         }
       }
