@@ -13,8 +13,12 @@
         required
       >
         <option disabled></option>
-        <option v-for="objectKey in Object.keys(touchableObjects)" :key="objectKey" :value="objectKey">
-          {{ touchableObjects[objectKey].name }}
+        <option
+          v-for="object in touchableObjects"
+          :key="object.name"
+          :value="object.name"
+        >
+          {{ object.name }}
         </option>
       </select>
     </label>
@@ -44,47 +48,46 @@ export default {
     return {
       rawSelectedObject: "",
       touchedTime: null,
-      touchableObjects: {
-        metal: {
+      touchableObjects: [
+        {
           name: "Metal",
           lifetime: moment.duration(5, "days")
         },
-        wood: {
+        {
           name: "Wood",
           lifetime: moment.duration(4, "days")
         },
-        plastic: {
+        {
           name: "Plastic",
           lifetime: moment.duration(3, "days")
         },
-        stainlessSteel: {
+        {
           name: "Stainless Steel",
           lifetime: moment.duration(3, "days")
         },
-        cardboard: {
+        {
           name: "Cardboard",
           lifetime: moment.duration(1, "days")
         }
-      }
+      ]
     };
   },
   computed: {
     showResult() {
-      return this.selectedObject && this.touchedTime;
+      return this.rawSelectedObject !== "" && this.touchedTime !== "";
     },
     selectedObject() {
-      return this.rawSelectedObject.toLowerCase();
+      const rawSelectedObject = this.rawSelectedObject;
+      return this.touchableObjects.find(
+        object => object.name === rawSelectedObject
+      );
     },
     canTheyTouchThis() {
-      if (
-        !(this.selectedObject in this.touchableObjects) ||
-        !this.touchedTime
-      ) {
+      if (this.selectedObject === undefined || !this.touchedTime) {
         return "";
       }
 
-      const selectedObjectLifetime = this.touchableObjects[this.selectedObject]
-        .lifetime;
+      const selectedObjectLifetime = this.selectedObject.lifetime;
       const touchedTime = moment(this.touchedTime);
       const durationDiff = moment.duration(moment().diff(touchedTime));
       if (durationDiff.asHours() > selectedObjectLifetime.asHours()) {
