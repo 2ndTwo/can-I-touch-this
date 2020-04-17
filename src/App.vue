@@ -42,9 +42,9 @@
       <p
         class="result"
         :class="{
-          'result--yes': canTheyTouchThis,
+          'result--yes': canTheyTouchThis === true,
           'result--maybe': canTheyTouchThis === undefined,
-          'result--no': !canTheyTouchThis
+          'result--no': canTheyTouchThis === false
         }"
       >
         {{ canTheyTouchThisText }}
@@ -281,7 +281,7 @@ h1 {
   }
 
   &--maybe {
-    color: yellow;
+    color: orange;
   }
 
   &--no {
