@@ -237,20 +237,22 @@ export default {
 </script>
 
 <style lang="scss">
+$heading-font: "Roboto", sans-serif;
+$copy-font: "Open Sans", sans-serif;
+
 body {
   margin: 0;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: $copy-font;
+  color: #333;
   text-align: center;
-  color: #2c3e50;
   margin: 20vh 1rem 20vh;
 }
 
 h1 {
+  font-family: $heading-font;
   font-size: 2.75rem;
   margin-bottom: 0.25em;
 }
@@ -272,9 +274,10 @@ h1 {
 }
 
 .result {
+  font-family: $heading-font;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.2em;
 
   &--yes {
     color: green;
