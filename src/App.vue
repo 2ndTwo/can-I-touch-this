@@ -52,10 +52,10 @@
       <p v-if="canTheyTouchThis === undefined">
         To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait <span class="orphan">a day or two.</span>
       </p>
-      <p class="result__description" v-if="canTheyTouchThis">
+      <p class="result__description" v-if="canTheyTouchThis === true">
         You can safely touch this.
       </p>
-      <p class="result__description" v-if="!canTheyTouchThis">
+      <p class="result__description" v-if="canTheyTouchThis === false">
         You shouldn't touch this.
       </p>
       <p class="result__description">
