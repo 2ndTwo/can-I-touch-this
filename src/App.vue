@@ -142,11 +142,14 @@ export default {
         return "";
       }
 
+      const conditionalS = this.selectedObject.sources.length > 1 ? "s" : "";
+
       return (
-        "[Sources: " +
+        `[Source${conditionalS}: ` +
         this.selectedObject.sources.reduce(function(result, item, index) {
           const sourceNum = index + 1;
-          return `${result} <a href="${item}">${sourceNum}</a>`;
+          const conditionalComma = index > 0 ? "," : "";
+          return `${result}${conditionalComma} <a href="${item}">${sourceNum}</a>`;
         }, "") +
         "]"
       );
