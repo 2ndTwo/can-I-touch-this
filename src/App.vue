@@ -267,6 +267,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   font-family: $copy-font;
   color: #333;
 }
