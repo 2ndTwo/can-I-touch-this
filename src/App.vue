@@ -61,6 +61,7 @@
         The novel coronavirus can survive on
         {{ selectedObject.name.toLowerCase() }} for up to
         {{ selectedObjectReadableLifetime }}.
+        <span v-html="selectedObjectReadableSources"></span>
       </p>
     </div>
   </div>
@@ -80,23 +81,38 @@ export default {
       touchableObjects: [
         {
           name: "Metal",
-          lifetime: moment.duration(5, "days")
+          lifetime: moment.duration(5, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         },
         {
           name: "Wood",
-          lifetime: moment.duration(4, "days")
+          lifetime: moment.duration(4, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         },
         {
           name: "Plastic",
-          lifetime: moment.duration(3, "days")
+          lifetime: moment.duration(3, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         },
         {
           name: "Stainless Steel",
-          lifetime: moment.duration(3, "days")
+          lifetime: moment.duration(3, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         },
         {
           name: "Cardboard",
-          lifetime: moment.duration(1, "days")
+          lifetime: moment.duration(1, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         }
       ]
     };
@@ -120,6 +136,20 @@ export default {
     },
     selectedObjectReadableLifetime() {
       return this.selectedObject.lifetime.humanize();
+    },
+    selectedObjectReadableSources() {
+      if (!this.selectedObject.sources) {
+        return "";
+      }
+
+      return (
+        "[Sources: " +
+        this.selectedObject.sources.reduce(function(result, item, index) {
+          const sourceNum = index + 1;
+          return `${result} <a href="${item}">${sourceNum}</a>`;
+        }, "") +
+        "]"
+      );
     },
     canTheyTouchThis() {
       if (this.selectedObject === undefined || !this.touchedDate) {
