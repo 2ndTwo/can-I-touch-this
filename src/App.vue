@@ -1,70 +1,89 @@
 <template>
   <div id="app">
-    <h1>Can I touch this?</h1>
-    <p class="sub-heading">
-      A touching guide for the novel coronavirus (COVID-19) pandemic
-    </p>
+    <main class="main-content">
+      <h1>Can I touch this?</h1>
+      <p class="sub-heading">
+        A touching guide for the novel coronavirus (COVID-19) pandemic
+      </p>
 
-    <label class="field field__label">
-      What do you want to touch?
-      <select
-        class="field__input field__select"
-        v-model="rawSelectedObject"
-        required
-      >
-        <option disabled></option>
-        <option
-          v-for="object in touchableObjects"
-          :key="object.name"
-          :value="object.name"
+      <label class="field field__label">
+        What do you want to touch?
+        <select
+          class="field__input field__select"
+          v-model="rawSelectedObject"
+          required
         >
-          {{ object.name }}
-        </option>
-      </select>
-    </label>
+          <option disabled></option>
+          <option
+            v-for="object in touchableObjects"
+            :key="object.name"
+            :value="object.name"
+          >
+            {{ object.name }}
+          </option>
+        </select>
+      </label>
 
-    <label class="field field__label">
-      How recently could someone else have
-      <span class="orphan">touched this?</span>
-      <input class="field__input" type="date" v-model="touchedDate" required />
-    </label>
+      <label class="field field__label">
+        How recently could someone else have
+        <span class="orphan">touched this?</span>
+        <input
+          class="field__input"
+          type="date"
+          v-model="touchedDate"
+          required
+        />
+      </label>
 
-    <label
-      class="field field__label"
-      v-show="showTimeField"
-      @focusin="timeFieldUsed = true"
-    >
-      What time could it have <span class="orphan">been touched?</span>
-      <input class="field__input" type="time" v-model="touchedTime" required />
-    </label>
-
-    <div v-if="showResult">
-      <p
-        class="result"
-        :class="{
-          'result--yes': canTheyTouchThis === true,
-          'result--maybe': canTheyTouchThis === undefined,
-          'result--no': canTheyTouchThis === false
-        }"
+      <label
+        class="field field__label"
+        v-show="showTimeField"
+        @focusin="timeFieldUsed = true"
       >
-        {{ canTheyTouchThisText }}
-      </p>
-      <p v-if="canTheyTouchThis === undefined">
-        To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait <span class="orphan">a day or two.</span>
-      </p>
-      <p class="result__description" v-if="canTheyTouchThis === true">
-        You can safely touch this.
-      </p>
-      <p class="result__description" v-if="canTheyTouchThis === false">
-        You shouldn't touch this.
-      </p>
-      <p class="result__description">
-        The novel coronavirus can survive on
-        {{ selectedObject.name.toLowerCase() }} for up to
-        {{ selectedObjectReadableLifetime }}.
-        <span v-html="selectedObjectReadableSources"></span>
-      </p>
-    </div>
+        What time could it have <span class="orphan">been touched?</span>
+        <input
+          class="field__input"
+          type="time"
+          v-model="touchedTime"
+          required
+        />
+      </label>
+
+      <div v-if="showResult">
+        <p
+          class="result"
+          :class="{
+            'result--yes': canTheyTouchThis === true,
+            'result--maybe': canTheyTouchThis === undefined,
+            'result--no': canTheyTouchThis === false
+          }"
+        >
+          {{ canTheyTouchThisText }}
+        </p>
+        <p v-if="canTheyTouchThis === undefined">
+          To get a definitive answer, you can either enter the time the object
+          may have been exposed to the virus or you can play it safe and wait
+          <span class="orphan">a day or two.</span>
+        </p>
+        <p class="result__description" v-if="canTheyTouchThis === true">
+          You can safely touch this.
+        </p>
+        <p class="result__description" v-if="canTheyTouchThis === false">
+          You shouldn't touch this.
+        </p>
+        <p class="result__description">
+          The novel coronavirus can survive on
+          {{ selectedObject.name.toLowerCase() }} for up to
+          {{ selectedObjectReadableLifetime }}.
+          <span v-html="selectedObjectReadableSources"></span>
+        </p>
+      </div>
+    </main>
+    <aside class="credit">
+      <small class="credit__text">
+        Created by Colby Weil
+      </small>
+    </aside>
   </div>
 </template>
 
@@ -245,10 +264,25 @@ body {
 }
 
 #app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: $copy-font;
   color: #333;
+}
+
+.main-content {
   text-align: center;
-  margin: 20vh 1rem 20vh;
+  padding: 20vh 1rem 20vh;
+}
+
+.credit {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  font-size: 0.875rem;
+  text-align: end;
+  padding: 1em;
 }
 
 h1 {
