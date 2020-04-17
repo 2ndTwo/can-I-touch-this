@@ -24,7 +24,8 @@
     </label>
 
     <label class="field field__label">
-      How recently could someone else have touched this?
+      How recently could someone else have
+      <span class="orphan">touched this?</span>
       <input class="field__input" type="date" v-model="touchedDate" required />
     </label>
 
@@ -33,7 +34,7 @@
       v-show="showTimeField"
       @focusin="timeFieldUsed = true"
     >
-      What time could it have been touched?
+      What time could it have <span class="orphan">been touched?</span>
       <input class="field__input" type="time" v-model="touchedTime" required />
     </label>
 
@@ -49,7 +50,7 @@
         {{ canTheyTouchThisText }}
       </p>
       <p v-if="canTheyTouchThis === undefined">
-        To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait a day or two.
+        To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait <span class="orphan">a day or two.</span>
       </p>
       <p class="result__description" v-if="canTheyTouchThis">
         You can safely touch this.
@@ -291,5 +292,9 @@ h1 {
     font-size: 1rem;
     margin: 0 0 0.5em;
   }
+}
+
+.orphan {
+  white-space: nowrap;
 }
 </style>
