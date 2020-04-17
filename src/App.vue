@@ -51,6 +51,12 @@
       <p v-if="canTheyTouchThis === undefined">
         To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait a day or two.
       </p>
+      <p class="result__description" v-if="canTheyTouchThis">
+        You can safely touch this.
+      </p>
+      <p class="result__description" v-if="!canTheyTouchThis">
+        You shouldn't touch this.
+      </p>
       <p class="result__description">
         The novel coronavirus can survive on
         {{ selectedObject.name.toLowerCase() }} for up to
@@ -169,10 +175,11 @@ body {
 }
 
 h1 {
+  font-size: 2.75rem;
   margin-bottom: 0.25em;
 }
 .sub-heading {
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin: 0 0 2em;
 }
 
@@ -206,8 +213,8 @@ h1 {
   }
 
   &__description {
-    font-size: 0.875rem;
-    margin: 0;
+    font-size: 1rem;
+    margin: 0 0 0.5em;
   }
 }
 </style>
