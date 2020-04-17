@@ -113,6 +113,48 @@ export default {
           sources: [
             "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
           ]
+        },
+        {
+          name: "Copper",
+          lifetime: moment.duration(4, "hours"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
+        },
+        {
+          name: "Aluminum",
+          lifetime: moment.duration(8, "hours"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
+        },
+        {
+          name: "Glass",
+          lifetime: moment.duration(5, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
+        },
+        {
+          name: "Ceramics",
+          lifetime: moment.duration(5, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
+        },
+        {
+          name: "Paper",
+          lifetime: moment.duration(5, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
+        },
+        {
+          name: "Food",
+          lifetime: moment.duration(0, "days"),
+          sources: [
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
+          ]
         }
       ]
     };
