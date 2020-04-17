@@ -25,19 +25,37 @@
 
     <label class="field field__label">
       How recently could someone else have touched this?
-      <input
-        class="field__input"
-        type="datetime-local"
-        v-model="touchedTime"
-        required
-      />
+      <input class="field__input" type="date" v-model="touchedDate" required />
+    </label>
+
+    <label
+      class="field field__label"
+      v-show="showTimeField"
+      @focusin="timeFieldUsed = true"
+    >
+      What time could it have been touched?
+      <input class="field__input" type="time" v-model="touchedTime" required />
     </label>
 
     <div v-if="showResult">
-      <p class="result" :class="{ 'result--yes': canTheyTouchThis, 'result--no': !canTheyTouchThis }">
+      <p
+        class="result"
+        :class="{
+          'result--yes': canTheyTouchThis,
+          'result--maybe': canTheyTouchThis === undefined,
+          'result--no': !canTheyTouchThis
+        }"
+      >
         {{ canTheyTouchThisText }}
       </p>
-      <p class="result__description">The novel coronavirus can survive on {{ selectedObject.name.toLowerCase() }} for up to {{ selectedObjectReadableLifetime }}.</p>
+      <p v-if="canTheyTouchThis === undefined">
+        To get a definitive answer, you can either enter the time the object may have been exposed to the virus or you can play it safe and wait a day or two.
+      </p>
+      <p class="result__description">
+        The novel coronavirus can survive on
+        {{ selectedObject.name.toLowerCase() }} for up to
+        {{ selectedObjectReadableLifetime }}.
+      </p>
     </div>
   </div>
 </template>
@@ -50,7 +68,9 @@ export default {
   data() {
     return {
       rawSelectedObject: "",
-      touchedTime: null,
+      touchedDate: "",
+      touchedTime: "",
+      timeFieldUsed: false,
       touchableObjects: [
         {
           name: "Metal",
@@ -76,8 +96,15 @@ export default {
     };
   },
   computed: {
+    showTimeField() {
+      return (
+        this.timeFieldUsed ||
+        this.canTheyTouchThis === undefined ||
+        this.touchedTime !== ""
+      );
+    },
     showResult() {
-      return this.rawSelectedObject !== "" && this.touchedTime !== null;
+      return this.rawSelectedObject !== "" && this.touchedDate !== "";
     },
     selectedObject() {
       const rawSelectedObject = this.rawSelectedObject;
@@ -89,18 +116,36 @@ export default {
       return this.selectedObject.lifetime.humanize();
     },
     canTheyTouchThis() {
-      if (this.selectedObject === undefined || !this.touchedTime) {
+      if (this.selectedObject === undefined || !this.touchedDate) {
         return null;
       }
 
       const selectedObjectLifetime = this.selectedObject.lifetime;
-      const touchedTime = moment(this.touchedTime);
+
+      let touchedTime;
+      if (this.touchedTime !== "") {
+        touchedTime = moment(this.touchedDate + " " + this.touchedTime);
+      } else {
+        touchedTime = moment(this.touchedDate);
+      }
+
       const durationDiff = moment.duration(moment().diff(touchedTime));
+
+      console.log(durationDiff.asDays());
+      console.log(selectedObjectLifetime.asDays());
+      if (
+        this.touchedTime === "" &&
+        Math.abs(durationDiff.asDays() - selectedObjectLifetime.asDays()) < 1
+      ) {
+        return undefined;
+      }
       return durationDiff.asHours() > selectedObjectLifetime.asHours();
     },
     canTheyTouchThisText() {
-      if (this.canTheyTouchThis) {
+      if (this.canTheyTouchThis === true) {
         return "Yes";
+      } else if (this.canTheyTouchThis === undefined) {
+        return "Maybe";
       } else {
         return "No";
       }
@@ -150,6 +195,10 @@ h1 {
 
   &--yes {
     color: green;
+  }
+
+  &--maybe {
+    color: yellow;
   }
 
   &--no {
