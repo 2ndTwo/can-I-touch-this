@@ -76,7 +76,7 @@
           The novel coronavirus can survive on
           {{ selectedObject.name.toLowerCase() }} for up to
           {{ selectedObjectReadableLifetime }}.
-          <span v-html="selectedObjectReadableSources"></span>
+          <span v-html="selectedObjectReadableSources" class="orphan"></span>
         </p>
       </div>
     </main>
