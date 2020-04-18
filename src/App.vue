@@ -82,6 +82,18 @@
     <aside class="credit">
       <small class="credit__text">
         Created by Colby Weil
+        <a href="mailto:canitouchthis@protonmail.com" class="credit__link">
+          <font-awesome-icon
+            :icon="['fas', 'envelope']"
+            class="credit__icon"
+          ></font-awesome-icon>
+        </a>
+        <a href="https://www.linkedin.com/in/colby-weil/" class="credit__link">
+          <font-awesome-icon
+            :icon="['fab', 'linkedin']"
+            class="credit__icon"
+          ></font-awesome-icon>
+        </a>
       </small>
     </aside>
   </div>
@@ -281,9 +293,29 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-align: end;
   padding: 1em;
+
+  &__text {
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    margin-left: 0.6rem;
+    color: inherit;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: dodgerblue;
+    }
+  }
+
+  &__icon {
+    font-size: 1.4em;
+  }
 }
 
 h1 {
