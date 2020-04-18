@@ -31,6 +31,7 @@
           class="field__input"
           type="date"
           v-model="touchedDate"
+          :max="todayDate"
           required
         />
       </label>
@@ -192,6 +193,9 @@ export default {
     };
   },
   computed: {
+    todayDate() {
+      return moment().format("YYYY-MM-DD");
+    },
     showTimeField() {
       return (
         this.timeFieldUsed ||
