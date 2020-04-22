@@ -56,7 +56,7 @@
           :class="{
             'result--yes': canTheyTouchThis === true,
             'result--maybe': canTheyTouchThis === undefined,
-            'result--no': canTheyTouchThis === false
+            'result--no': canTheyTouchThis === false,
           }"
         >
           {{ canTheyTouchThisText }}
@@ -116,80 +116,80 @@ export default {
           name: "Metal",
           lifetime: moment.duration(5, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Wood",
           lifetime: moment.duration(4, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Plastic",
           lifetime: moment.duration(3, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Stainless Steel",
           lifetime: moment.duration(3, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Cardboard",
           lifetime: moment.duration(1, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Copper",
           lifetime: moment.duration(4, "hours"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Aluminum",
           lifetime: moment.duration(8, "hours"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Glass",
           lifetime: moment.duration(5, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Ceramics",
           lifetime: moment.duration(5, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Paper",
           lifetime: moment.duration(5, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
         },
         {
           name: "Food",
           lifetime: moment.duration(0, "days"),
           sources: [
-            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces"
-          ]
-        }
-      ]
+            "https://www.webmd.com/lung/how-long-covid-19-lives-on-surfaces",
+          ],
+        },
+      ],
     };
   },
   computed: {
@@ -209,7 +209,7 @@ export default {
     selectedObject() {
       const rawSelectedObject = this.rawSelectedObject;
       return this.touchableObjects.find(
-        object => object.name === rawSelectedObject
+        (object) => object.name === rawSelectedObject
       );
     },
     selectedObjectReadableLifetime() {
@@ -224,7 +224,7 @@ export default {
 
       return (
         `[Source${conditionalS}: ` +
-        this.selectedObject.sources.reduce(function(result, item, index) {
+        this.selectedObject.sources.reduce(function (result, item, index) {
           const sourceNum = index + 1;
           const conditionalComma = index > 0 ? "," : "";
           return `${result}${conditionalComma} <a href="${item}">${sourceNum}</a>`;
@@ -266,8 +266,8 @@ export default {
       } else {
         return "No";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
