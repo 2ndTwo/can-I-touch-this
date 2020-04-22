@@ -1,4 +1,6 @@
-# can-i-touch-this
+# Can I touch this?
+
+A simple Vue web app for helping people touch things safely during the COVID-19 pandemic.
 
 ## Project setup
 ```
